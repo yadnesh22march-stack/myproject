@@ -9,7 +9,7 @@
             margin: 0;
             padding: 0;
             overflow: hidden;
-            background-color: #87CEEB;
+            background-color: #000;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             user-select: none;
         }
@@ -23,7 +23,7 @@
             z-index: 1;
         }
 
-        /* UI Elements */
+        /* UI Elements - Made Smaller */
         #ui-layer {
             position: absolute;
             top: 0;
@@ -38,13 +38,14 @@
         }
 
         .hud-panel {
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(10, 20, 15, 0.85);
             color: white;
-            padding: 15px 20px;
-            border-radius: 12px;
-            margin: 20px;
-            backdrop-filter: blur(5px);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            padding: 10px 15px; /* Reduced padding */
+            border-radius: 10px;
+            margin: 15px;
+            max-width: 240px; /* Restrict maximum width */
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.5);
             border: 1px solid rgba(255,255,255,0.1);
         }
 
@@ -53,49 +54,63 @@
         }
 
         #status-panel h1 {
+            margin: 0 0 5px 0;
+            font-size: 18px; /* Reduced font size */
+            color: #8BC34A;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        #task-text {
+            font-size: 14px; /* Reduced font size */
             margin: 0 0 10px 0;
-            font-size: 24px;
-            color: #4CAF50;
+            color: #FFD700;
         }
 
         #controls-guide {
-            font-size: 14px;
+            font-size: 12px; /* Reduced font size */
             line-height: 1.5;
         }
 
         .finger-highlight {
             color: #FFC107;
             font-weight: bold;
+            display: inline-block;
+            width: 75px; /* Slightly narrower */
         }
 
         #state-display {
-            font-size: 20px;
+            font-size: 13px; /* Reduced font size */
             font-weight: bold;
             margin-top: 10px;
             color: #03A9F4;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
+            background: rgba(0,0,0,0.5);
+            padding: 6px;
+            border-radius: 4px;
+            text-align: center;
         }
 
         /* Webcam Feed */
         #webcam-container {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 240px;
-            height: 180px;
-            border-radius: 12px;
+            top: 15px;
+            right: 15px;
+            width: 200px; /* Slightly smaller webcam */
+            height: 150px;
+            border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.6);
             border: 2px solid rgba(255,255,255,0.2);
-            background: #222;
+            background: #111;
         }
 
         #webcam-feed {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transform: scaleX(-1); /* Mirror effect */
+            transform: scaleX(-1);
         }
 
         #canvas-overlay {
@@ -104,7 +119,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            transform: scaleX(-1); /* Mirror to match webcam */
+            transform: scaleX(-1);
         }
 
         /* Start Screen */
@@ -114,7 +129,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(15, 20, 30, 0.9);
+            background: radial-gradient(circle at center, #1b3a24 0%, #08120b 100%);
             z-index: 100;
             display: flex;
             flex-direction: column;
@@ -122,51 +137,146 @@
             justify-content: center;
             color: white;
             pointer-events: auto;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.8s ease;
+        }
+
+        .ambient-orb {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(139, 195, 74, 0.4) 0%, transparent 70%);
+            animation: float 10s infinite alternate ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) scale(1); opacity: 0.5; }
+            100% { transform: translateY(-50px) scale(1.2); opacity: 0.8; }
+        }
+
+        .start-card {
+            background: rgba(20, 30, 20, 0.6);
+            padding: 50px;
+            border-radius: 20px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            max-width: 600px;
+            z-index: 2;
         }
 
         #start-screen h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            background: linear-gradient(45deg, #4CAF50, #8BC34A);
+            font-size: 52px;
+            margin: 0 0 20px 0;
+            background: linear-gradient(45deg, #8BC34A, #FFEB3B);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
             color: transparent;
+            text-shadow: 0 4px 15px rgba(139, 195, 74, 0.3);
         }
 
         #start-screen p {
             font-size: 18px;
-            max-width: 600px;
-            text-align: center;
             line-height: 1.6;
             margin-bottom: 40px;
+            color: #ddd;
         }
 
         #start-btn {
-            padding: 15px 40px;
-            font-size: 24px;
-            background: #4CAF50;
+            padding: 16px 45px;
+            font-size: 22px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #4CAF50, #2E7D32);
             color: white;
             border: none;
             border-radius: 30px;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
             transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         #start-btn:hover {
-            background: #45a049;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.6);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.6);
         }
 
         #loading-text {
-            margin-top: 20px;
+            margin-top: 25px;
             font-size: 16px;
-            color: #aaa;
+            color: #FFCA28;
+            font-weight: bold;
             display: none;
+            letter-spacing: 1px;
         }
+
+        /* Cinematic Story Overlays */
+        .cinematic-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            z-index: 90;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding: 40px;
+            box-sizing: border-box;
+            opacity: 0;
+            transition: opacity 2s ease;
+        }
+
+        .story-text {
+            font-size: 28px;
+            line-height: 1.8;
+            max-width: 800px;
+            margin-bottom: 30px;
+            font-family: 'Georgia', serif;
+            font-style: italic;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1.5s ease;
+            color: #e0e0e0;
+        }
+
+        .story-text.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .story-text.highlight {
+            color: #FFD700;
+            font-weight: bold;
+            font-style: normal;
+        }
+
+        .skip-btn {
+            margin-top: 40px;
+            padding: 10px 30px;
+            background: transparent;
+            color: #888;
+            border: 1px solid #555;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            opacity: 0;
+            transition: opacity 1s ease, color 0.3s, border 0.3s;
+        }
+        .skip-btn:hover {
+            color: #fff;
+            border-color: #fff;
+        }
+        .skip-btn.visible {
+            opacity: 1;
+        }
+
     </style>
     
     <!-- Three.js for 3D Graphics -->
@@ -182,31 +292,53 @@
 
     <div id="game-container"></div>
 
-    <div id="ui-layer">
+    <div id="ui-layer" style="display: none;">
         <div class="hud-panel" id="status-panel">
-            <h1>Animal Perspective</h1>
-            <h3 id="task-text" style="color: #FFD700; margin: 5px 0 15px 0;">Task: Collect Orbs <span id="score-val">0</span> / 15</h3>
+            <h1>Spirit Wolf</h1>
+            <h3 id="task-text">Task: Collect Seeds <span id="score-val">0</span> / 15</h3>
             <div id="controls-guide">
-                <div><span class="finger-highlight">1 Finger:</span> Idle / Look</div>
-                <div><span class="finger-highlight">2 Fingers:</span> Walk Forward</div>
-                <div><span class="finger-highlight">3 Fingers:</span> Run</div>
-                <div><span class="finger-highlight">4 Fingers:</span> Turn Right</div>
-                <div><span class="finger-highlight">5 Fingers:</span> Turn Left</div>
+                <div><span class="finger-highlight">Fist (0):</span> JUMP (Any Hand) ⬆️</div>
+                <div><span class="finger-highlight">1 Finger:</span> Idle / Look 👀</div>
+                <div><span class="finger-highlight">2 Fingers:</span> Walk 🚶</div>
+                <div><span class="finger-highlight">3 Fingers:</span> Run 🏃</div>
+                <div><span class="finger-highlight">4 Fingers:</span> Turn Right ➡️</div>
+                <div><span class="finger-highlight">5 Fingers:</span> Turn Left ⬅️</div>
             </div>
-            <div id="state-display">Current State: IDLE</div>
+            <div id="state-display">MOVE: IDLE</div>
         </div>
     </div>
 
-    <div id="webcam-container">
+    <div id="webcam-container" style="display: none;">
         <video id="webcam-feed" autoplay playsinline></video>
         <canvas id="canvas-overlay"></canvas>
     </div>
 
+    <div class="ambient-orb" style="width: 300px; height: 300px; top: 10%; left: 15%;"></div>
+    <div class="ambient-orb" style="width: 500px; height: 500px; bottom: -10%; right: 10%; animation-delay: 2s;"></div>
+
     <div id="start-screen">
-        <h1>Wilderness Gestures</h1>
-        <p>Control a majestic animal in a lively open world using only your hand gestures via webcam.<br><br>The animal moves slowly to let you enjoy the scenery. Make sure you are in a well-lit room and your hand is clearly visible to the camera.</p>
-        <button id="start-btn">Allow Camera & Play</button>
-        <div id="loading-text">Initializing AI Models and 3D World...</div>
+        <div class="start-card">
+            <h1>Spirit Wolf</h1>
+            <p>Use your hand gestures to guide the Spirit Wolf.<br><b>New:</b> Use a second hand to make a Fist and jump while moving!</p>
+            <button id="start-btn">Allow Camera & Begin</button>
+            <div id="loading-text">Awakening the Spirit...</div>
+        </div>
+    </div>
+
+    <!-- Intro Cinematic -->
+    <div id="intro-cinematic" class="cinematic-overlay">
+        <div class="story-text" id="intro-1">The city of men grew too fast, swallowing the ancient woods.</div>
+        <div class="story-text" id="intro-2">But nature has a memory...</div>
+        <div class="story-text" id="intro-3">You are the <span class="highlight">Spirit Wolf</span>, awakened to restore the balance.</div>
+        <div class="story-text" id="intro-4">Seek out the 15 <span class="highlight">Seeds of Life</span>. Beware the fallen debris.</div>
+        <button class="skip-btn" id="skip-intro-btn">Enter World</button>
+    </div>
+
+    <!-- Outro Cinematic -->
+    <div id="outro-cinematic" class="cinematic-overlay">
+        <div class="story-text" id="outro-1">You have gathered all the Seeds of Life.</div>
+        <div class="story-text" id="outro-2">Roots break through the concrete. The canopy rises once more.</div>
+        <div class="story-text" id="outro-3">The balance is restored.<br><span class="highlight">Thank you, Spirit Wolf.</span></div>
     </div>
 
     <script>
@@ -218,19 +350,27 @@
         let score = 0;
         const TOTAL_ORBS = 15;
         let worldReady = false;
+        let isGameRunning = false;
+        
+        // Physics & Collision Data
+        let buildingsData = [];
+        let obstaclesData = [];
+        let playerVelocityY = 0;
+        let isJumping = false;
+        let canJump = true; 
+        let currentForwardSpeed = 0; 
+        const GRAVITY = -0.015;
+        const JUMP_STRENGTH = 0.45; // Increased for extra clearance over logs
         
         // Game State variables
         let currentState = 'IDLE';
-        let detectedFingers = 0;
+        let movementFingers = 1; // Tracks movement gesture
+        let isJumpCommand = false; // Tracks if ANY hand is making a fist
         let targetRotation = 0;
         let walkCycle = 0;
         
-        // Movement configuration (VERY SLOW as requested)
-        const SPEEDS = {
-            walk: 0.03,
-            run: 0.08,
-            turn: 0.005
-        };
+        // SPEEDS (Turning speed heavily reduced)
+        const SPEEDS = { walk: 0.04, run: 0.1, turn: 0.015 };
 
         // DOM Elements
         const videoElement = document.getElementById('webcam-feed');
@@ -240,22 +380,87 @@
         const startBtn = document.getElementById('start-btn');
         const startScreen = document.getElementById('start-screen');
         const loadingText = document.getElementById('loading-text');
+        
+        // Cinematic Elements
+        const introOverlay = document.getElementById('intro-cinematic');
+        const outroOverlay = document.getElementById('outro-cinematic');
+        const uiLayer = document.getElementById('ui-layer');
+        const webcamContainer = document.getElementById('webcam-container');
 
-        // Helper for finger distance calculation
         function getDist(p1, p2) {
             return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
         }
 
-        // --- PROCEDURAL TEXTURE GENERATORS ---
-        // Generates textures without needing external image links
+        function playIntroStory() {
+            startScreen.style.opacity = '0';
+            setTimeout(() => {
+                startScreen.style.display = 'none';
+                introOverlay.style.display = 'flex';
+                void introOverlay.offsetWidth;
+                introOverlay.style.opacity = '1';
+                
+                const lines = [
+                    document.getElementById('intro-1'),
+                    document.getElementById('intro-2'),
+                    document.getElementById('intro-3'),
+                    document.getElementById('intro-4')
+                ];
+                
+                let delay = 1000;
+                lines.forEach((line, index) => {
+                    setTimeout(() => line.classList.add('visible'), delay);
+                    delay += 3000; 
+                });
+
+                setTimeout(() => {
+                    document.getElementById('skip-intro-btn').classList.add('visible');
+                }, 4000);
+
+            }, 800);
+        }
+
+        document.getElementById('skip-intro-btn').addEventListener('click', startGameplay);
+
+        function startGameplay() {
+            introOverlay.style.opacity = '0';
+            setTimeout(() => {
+                introOverlay.style.display = 'none';
+                uiLayer.style.display = 'flex';
+                webcamContainer.style.display = 'block';
+                isGameRunning = true;
+            }, 1000);
+        }
+
+        function playOutroStory() {
+            isGameRunning = false;
+            uiLayer.style.display = 'none';
+            webcamContainer.style.display = 'none';
+            
+            outroOverlay.style.display = 'flex';
+            void outroOverlay.offsetWidth;
+            outroOverlay.style.opacity = '1';
+
+            const lines = [
+                document.getElementById('outro-1'),
+                document.getElementById('outro-2'),
+                document.getElementById('outro-3')
+            ];
+            
+            let delay = 1000;
+            lines.forEach((line) => {
+                setTimeout(() => line.classList.add('visible'), delay);
+                delay += 3500;
+            });
+        }
+
         function createFurTexture() {
             const canvas = document.createElement('canvas');
             canvas.width = 256; canvas.height = 256;
             const ctx = canvas.getContext('2d');
-            ctx.fillStyle = '#6d4c41'; // Base brown
+            ctx.fillStyle = '#cfd8dc'; 
             ctx.fillRect(0, 0, 256, 256);
             for(let i=0; i<3000; i++) {
-                ctx.fillStyle = Math.random() > 0.5 ? '#5d4037' : '#8d6e63';
+                ctx.fillStyle = Math.random() > 0.5 ? '#b0bec5' : '#ffffff';
                 ctx.fillRect(Math.random()*256, Math.random()*256, 2, 8);
             }
             const texture = new THREE.CanvasTexture(canvas);
@@ -268,15 +473,14 @@
             const canvas = document.createElement('canvas');
             canvas.width = 512; canvas.height = 512;
             const ctx = canvas.getContext('2d');
-            ctx.fillStyle = '#cfd8dc'; // Wall color
+            ctx.fillStyle = '#455A64'; 
             ctx.fillRect(0, 0, 512, 512);
-            ctx.fillStyle = '#263238'; // Window color
+            ctx.fillStyle = '#263238'; 
             for (let x = 20; x < 512; x += 60) {
                 for (let y = 20; y < 512; y += 80) {
-                    if (Math.random() > 0.2) { // 80% chance of a window
+                    if (Math.random() > 0.2) { 
                         ctx.fillRect(x, y, 40, 60);
-                        // Reflection
-                        ctx.fillStyle = 'rgba(255,255,255,0.1)';
+                        ctx.fillStyle = 'rgba(255,255,255,0.05)';
                         ctx.beginPath();
                         ctx.moveTo(x, y);
                         ctx.lineTo(x + 40, y + 60);
@@ -296,10 +500,10 @@
             const canvas = document.createElement('canvas');
             canvas.width = 512; canvas.height = 512;
             const ctx = canvas.getContext('2d');
-            ctx.fillStyle = '#33691E'; // Base green
+            ctx.fillStyle = '#1b3a24'; 
             ctx.fillRect(0, 0, 512, 512);
             for(let i=0; i<10000; i++) {
-                ctx.fillStyle = Math.random() > 0.5 ? '#558B2F' : '#2E7D32';
+                ctx.fillStyle = Math.random() > 0.5 ? '#2E7D32' : '#142e1b';
                 ctx.fillRect(Math.random()*512, Math.random()*512, 4, 4);
             }
             const texture = new THREE.CanvasTexture(canvas);
@@ -309,11 +513,23 @@
             return texture;
         }
 
-        // --- THREE.JS INITIALIZATION & SCENE BUILDING ---
+        function createBarkTexture() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 128; canvas.height = 256;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#3E2723';
+            ctx.fillRect(0, 0, 128, 256);
+            for(let i=0; i<1000; i++) {
+                ctx.fillStyle = '#4E342E';
+                ctx.fillRect(Math.random()*128, Math.random()*256, 10, 2);
+            }
+            return new THREE.CanvasTexture(canvas);
+        }
+
         function initThreeJS() {
             scene = new THREE.Scene();
-            scene.background = new THREE.Color(0x87CEEB); // Sky blue
-            scene.fog = new THREE.FogExp2(0x87CEEB, 0.015);
+            scene.background = new THREE.Color(0x0f1a14); 
+            scene.fog = new THREE.FogExp2(0x0f1a14, 0.012);
 
             camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
             
@@ -323,29 +539,25 @@
             renderer.shadowMap.type = THREE.PCFSoftShadowMap;
             document.getElementById('game-container').appendChild(renderer.domElement);
 
-            // Lighting
-            const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.6);
+            const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.4);
             hemiLight.position.set(0, 200, 0);
             scene.add(hemiLight);
 
-            const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            const dirLight = new THREE.DirectionalLight(0x8BC34A, 0.6); 
             dirLight.position.set(100, 100, 50);
             dirLight.castShadow = true;
-            dirLight.shadow.camera.top = 50;
-            dirLight.shadow.camera.bottom = -50;
-            dirLight.shadow.camera.left = -50;
-            dirLight.shadow.camera.right = 50;
+            dirLight.shadow.camera.top = 80;
+            dirLight.shadow.camera.bottom = -80;
+            dirLight.shadow.camera.left = -80;
+            dirLight.shadow.camera.right = 80;
             scene.add(dirLight);
 
-            // Environment
             buildWorld();
 
-            // Player Animal (Wolf/Dog-like construct)
             playerAnimal = createAnimal();
             playerAnimal.position.set(0, 0, 0);
             scene.add(playerAnimal);
 
-            // Handle Window Resize
             window.addEventListener('resize', onWindowResize, false);
             
             worldReady = true;
@@ -353,95 +565,106 @@
         }
 
         function buildWorld() {
-            // Ground
             const groundGeom = new THREE.PlaneGeometry(1000, 1000);
             const grassMat = new THREE.MeshStandardMaterial({ 
                 map: createGrassTexture(),
-                roughness: 0.8
+                roughness: 0.9
             });
             const ground = new THREE.Mesh(groundGeom, grassMat);
             ground.rotation.x = -Math.PI / 2;
             ground.receiveShadow = true;
             scene.add(ground);
 
-            // Generate City & Parks
             const buildingMat = new THREE.MeshStandardMaterial({ map: createBuildingTexture(), roughness: 0.7 });
-            const roadMat = new THREE.MeshStandardMaterial({ color: 0x555555, roughness: 0.9 });
             
-            // Central path
-            const roadGeom = new THREE.PlaneGeometry(8, 1000);
-            const road = new THREE.Mesh(roadGeom, roadMat);
-            road.rotation.x = -Math.PI / 2;
-            road.position.y = 0.01;
-            road.receiveShadow = true;
-            scene.add(road);
-
-            // Add scattered buildings and trees
-            for(let i=0; i<150; i++) {
+            for(let i=0; i<120; i++) {
                 let x = (Math.random() - 0.5) * 400;
                 let z = (Math.random() - 0.5) * 400;
                 
-                // Keep clear of the main center path
-                if (Math.abs(x) < 10) x += (x > 0 ? 10 : -10);
+                if (Math.abs(x) < 20 && Math.abs(z) < 20) continue;
 
-                if (Math.random() > 0.4) {
-                    // Tree
+                if (Math.random() > 0.6) {
                     const tree = createTree();
                     tree.position.set(x, 0, z);
                     scene.add(tree);
+                    buildingsData.push({x: x, z: z, w: 2, d: 2}); 
                 } else {
-                    // Building
-                    const width = 5 + Math.random() * 10;
-                    const height = 10 + Math.random() * 30;
-                    const depth = 5 + Math.random() * 10;
+                    const width = 8 + Math.random() * 15;
+                    const height = 15 + Math.random() * 40;
+                    const depth = 8 + Math.random() * 15;
                     const bGeom = new THREE.BoxGeometry(width, height, depth);
                     
-                    // Adjust texture repeat based on size
                     const bMat = buildingMat.clone();
                     bMat.map = buildingMat.map.clone();
-                    bMat.map.repeat.set(width/5, height/10);
+                    bMat.map.repeat.set(width/8, height/10);
                     
                     const building = new THREE.Mesh(bGeom, bMat);
                     building.position.set(x, height/2, z);
                     building.castShadow = true;
                     building.receiveShadow = true;
                     scene.add(building);
+                    
+                    buildingsData.push({x: x, z: z, w: width, d: depth});
                 }
             }
 
-            // Generate NPCs (Moving People)
-            for(let i=0; i<30; i++) {
-                const npc = createNPC();
-                npc.position.set((Math.random() - 0.5) * 100, 0, (Math.random() - 0.5) * 100);
-                npc.rotation.y = Math.random() * Math.PI * 2;
-                scene.add(npc);
-                npcs.push(npc);
+            const logMat = new THREE.MeshStandardMaterial({ map: createBarkTexture() });
+            const logGeom = new THREE.CylinderGeometry(1.5, 1.5, 14, 12);
+            
+            for(let i=0; i<70; i++) {
+                let x = (Math.random() - 0.5) * 350;
+                let z = (Math.random() - 0.5) * 350;
+                if (Math.abs(x) < 20 && Math.abs(z) < 20) continue;
+
+                const log = new THREE.Mesh(logGeom, logMat);
+                log.rotation.z = Math.PI / 2;
+                log.rotation.y = Math.random() * Math.PI; 
+                log.position.set(x, 1.0, z); 
+                log.castShadow = true;
+                scene.add(log);
+
+                // Use a circular radius instead of a box to avoid invisible corners
+                obstaclesData.push({x: x, z: z, radius: 5.5, height: 2.5}); 
             }
 
-            // Generate Collectible Checkpoints (Golden Orbs)
-            const orbGeom = new THREE.SphereGeometry(1, 16, 16);
+            const orbGeom = new THREE.SphereGeometry(1.2, 16, 16);
             const orbMat = new THREE.MeshStandardMaterial({ 
                 color: 0xFFD700, 
                 emissive: 0xFFD700,
-                emissiveIntensity: 0.4,
+                emissiveIntensity: 0.6,
                 roughness: 0.2,
                 metalness: 1.0
             });
 
             for(let i=0; i<TOTAL_ORBS; i++) {
+                let ox, oz;
+                let validPosition = false;
+
+                while(!validPosition) {
+                    validPosition = true;
+                    ox = (Math.random() - 0.5) * 300;
+                    oz = (Math.random() - 0.5) * 300;
+                    
+                    if (Math.abs(ox) < 15 && Math.abs(oz) < 15) validPosition = false;
+                    
+                    for(let b of buildingsData) {
+                        if (Math.abs(ox - b.x) < (b.w/2 + 4) && Math.abs(oz - b.z) < (b.d/2 + 4)) {
+                            validPosition = false;
+                            break;
+                        }
+                    }
+                }
+
                 const orb = new THREE.Mesh(orbGeom, orbMat);
-                let ox = (Math.random() - 0.5) * 300;
-                let oz = (Math.random() - 0.5) * 300;
+                orb.position.set(ox, 1.8, oz);
+                orb.userData = { originalY: 1.8, collected: false, phase: Math.random() * Math.PI * 2 };
                 
-                // Keep slightly away from center (0,0) so player doesn't instantly spawn on one
-                if (Math.abs(ox) < 10 && Math.abs(oz) < 10) ox += 15; 
-                
-                orb.position.set(ox, 1.5, oz);
-                orb.userData = { originalY: 1.5, collected: false, phase: Math.random() * Math.PI * 2 };
-                
-                // Add a small light to each orb
-                const orbLight = new THREE.PointLight(0xFFD700, 0.5, 10);
+                const orbLight = new THREE.PointLight(0xFFD700, 0.8, 15);
                 orb.add(orbLight);
+
+                const auraMat = new THREE.MeshBasicMaterial({color: 0xFFD700, transparent: true, opacity: 0.3});
+                const aura = new THREE.Mesh(new THREE.SphereGeometry(1.8, 16, 16), auraMat);
+                orb.add(aura);
 
                 scene.add(orb);
                 checkpoints.push(orb);
@@ -450,125 +673,83 @@
 
         function createTree() {
             const tree = new THREE.Group();
-            
-            // Trunk
-            const trunkGeom = new THREE.CylinderGeometry(0.4, 0.6, 3, 8);
-            const trunkMat = new THREE.MeshStandardMaterial({ color: 0x5D4037, roughness: 0.9 });
-            const trunk = new THREE.Mesh(trunkGeom, trunkMat);
-            trunk.position.y = 1.5;
+            const trunkMat = new THREE.MeshStandardMaterial({ map: createBarkTexture() });
+            const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.8, 4, 8), trunkMat);
+            trunk.position.y = 2;
             trunk.castShadow = true;
             tree.add(trunk);
             
-            // Leaves
-            const leavesGeom = new THREE.ConeGeometry(2.5, 5, 8);
-            const leavesMat = new THREE.MeshStandardMaterial({ color: 0x2E7D32, roughness: 0.8 });
-            const leaves = new THREE.Mesh(leavesGeom, leavesMat);
-            leaves.position.y = 4.5;
+            const leavesMat = new THREE.MeshStandardMaterial({ color: 0x1B5E20, roughness: 0.9 });
+            const leaves = new THREE.Mesh(new THREE.ConeGeometry(3, 7, 7), leavesMat);
+            leaves.position.y = 6;
             leaves.castShadow = true;
             tree.add(leaves);
-
             return tree;
-        }
-
-        function createNPC() {
-            const npc = new THREE.Group();
-            const skinMat = new THREE.MeshStandardMaterial({ color: 0xFFCCBC }); // Skin tone
-            const clothesColors = [0x1976D2, 0xD32F2F, 0x388E3C, 0xFBC02D, 0x8E24AA];
-            const clothMat = new THREE.MeshStandardMaterial({ color: clothesColors[Math.floor(Math.random()*clothesColors.length)] });
-            const pantMat = new THREE.MeshStandardMaterial({ color: 0x212121 });
-
-            // Torso
-            const torso = new THREE.Mesh(new THREE.BoxGeometry(0.8, 1.2, 0.5), clothMat);
-            torso.position.y = 1.4;
-            torso.castShadow = true;
-            npc.add(torso);
-
-            // Head
-            const head = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.5, 0.5), skinMat);
-            head.position.y = 2.3;
-            head.castShadow = true;
-            npc.add(head);
-
-            // Legs (with pivot points at top)
-            const legGeom = new THREE.BoxGeometry(0.3, 1.0, 0.3);
-            legGeom.translate(0, -0.5, 0); // Move pivot to top
-            
-            const legL = new THREE.Mesh(legGeom, pantMat);
-            legL.position.set(-0.25, 0.8, 0);
-            legL.castShadow = true;
-            npc.add(legL);
-            npc.userData.legL = legL;
-
-            const legR = new THREE.Mesh(legGeom, pantMat);
-            legR.position.set(0.25, 0.8, 0);
-            legR.castShadow = true;
-            npc.add(legR);
-            npc.userData.legR = legR;
-            
-            // Give NPC random walk speed
-            npc.userData.speed = 0.01 + Math.random() * 0.015;
-            npc.userData.turnTimer = 0;
-
-            return npc;
         }
 
         function createAnimal() {
             const group = new THREE.Group();
             const furMat = new THREE.MeshStandardMaterial({ 
                 map: createFurTexture(),
-                roughness: 0.9 
+                roughness: 0.7,
+                emissive: 0xffffff,
+                emissiveIntensity: 0.1
             });
 
-            // Torso
-            const body = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.6, 1.8), furMat);
-            body.position.y = 0.8;
+            const body = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.7, 2.0), furMat);
+            body.position.y = 1.0;
             body.castShadow = true;
             group.add(body);
 
-            // Neck & Head
             const headGroup = new THREE.Group();
-            headGroup.position.set(0, 1.1, 1.0);
+            headGroup.position.set(0, 1.4, 1.1);
             
-            const head = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.5, 0.6), furMat);
+            const head = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.6, 0.7), furMat);
             head.castShadow = true;
             headGroup.add(head);
 
-            const snout = new THREE.Mesh(new THREE.BoxGeometry(0.25, 0.25, 0.4), new THREE.MeshStandardMaterial({color: 0x3E2723}));
-            snout.position.set(0, -0.1, 0.4);
+            const snout = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.3, 0.5), furMat);
+            snout.position.set(0, -0.1, 0.5);
             snout.castShadow = true;
             headGroup.add(snout);
+            
+            const eyeMat = new THREE.MeshBasicMaterial({color: 0x00E5FF});
+            const eyeL = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.1, 0.1), eyeMat);
+            eyeL.position.set(-0.15, 0.1, 0.36);
+            headGroup.add(eyeL);
+            const eyeR = eyeL.clone();
+            eyeR.position.set(0.15, 0.1, 0.36);
+            headGroup.add(eyeR);
 
-            const earL = new THREE.Mesh(new THREE.ConeGeometry(0.1, 0.3, 4), furMat);
-            earL.position.set(-0.2, 0.3, -0.1);
+            const earL = new THREE.Mesh(new THREE.ConeGeometry(0.15, 0.4, 4), furMat);
+            earL.position.set(-0.2, 0.4, -0.1);
             earL.rotation.x = -0.2;
             headGroup.add(earL);
 
-            const earR = new THREE.Mesh(new THREE.ConeGeometry(0.1, 0.3, 4), furMat);
-            earR.position.set(0.2, 0.3, -0.1);
+            const earR = new THREE.Mesh(new THREE.ConeGeometry(0.15, 0.4, 4), furMat);
+            earR.position.set(0.2, 0.4, -0.1);
             earR.rotation.x = -0.2;
             headGroup.add(earR);
 
             group.add(headGroup);
 
-            // Tail
-            const tailGeom = new THREE.BoxGeometry(0.15, 0.8, 0.15);
-            tailGeom.translate(0, -0.4, 0); // Pivot at top
+            const tailGeom = new THREE.BoxGeometry(0.2, 1.0, 0.2);
+            tailGeom.translate(0, -0.5, 0); 
             const tail = new THREE.Mesh(tailGeom, furMat);
-            tail.position.set(0, 1.0, -0.9);
+            tail.position.set(0, 1.2, -1.0);
             tail.rotation.x = 0.5;
             group.add(tail);
             group.userData.tail = tail;
 
-            // Legs (Pivoted at top)
-            const legGeom = new THREE.BoxGeometry(0.2, 0.8, 0.2);
-            legGeom.translate(0, -0.4, 0);
+            const legGeom = new THREE.BoxGeometry(0.25, 1.0, 0.25);
+            legGeom.translate(0, -0.5, 0);
 
             const legs = {};
             const positions = {
-                FL: [0.3, 0.8, 0.6],
-                FR: [-0.3, 0.8, 0.6],
-                BL: [0.3, 0.8, -0.6],
-                BR: [-0.3, 0.8, -0.6]
+                FL: [0.4, 1.0, 0.7],
+                FR: [-0.4, 1.0, 0.7],
+                BL: [0.4, 1.0, -0.7],
+                BR: [-0.4, 1.0, -0.7]
             };
 
             for (const [key, pos] of Object.entries(positions)) {
@@ -582,6 +763,10 @@
             group.userData.legs = legs;
             group.userData.head = headGroup;
 
+            const auraLight = new THREE.PointLight(0x00E5FF, 0.5, 10);
+            auraLight.position.y = 2;
+            group.add(auraLight);
+
             return group;
         }
 
@@ -592,45 +777,79 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
         }
 
-        // --- MEDIAPIPE HAND TRACKING ---
+        function isColliding(x, z, yPos) {
+            if(x > 450 || x < -450 || z > 450 || z < -450) return true;
+
+            for(let b of buildingsData) {
+                if (Math.abs(x - b.x) < (b.w/2 + 0.8) && Math.abs(z - b.z) < (b.d/2 + 0.8)) return true;
+            }
+            
+            for(let o of obstaclesData) {
+                // Smoother circular collision detection for logs
+                if (Math.sqrt(Math.pow(x - o.x, 2) + Math.pow(z - o.z, 2)) < o.radius) {
+                    // Allow passing over the log if the player's jump height is above it
+                    if (yPos < o.height - 0.5) return true; 
+                }
+            }
+            return false;
+        }
+
+        // --- DUAL HAND MEDIAPIPE TRACKING ---
         function onHandResults(results) {
             canvasCtx.save();
             canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
             
-            detectedFingers = 0;
+            isJumpCommand = false;
+            let maxFingers = 1; // Default to IDLE
 
             if (results.multiHandLandmarks && results.multiHandLandmarks.length > 0) {
-                // Draw landmarks on the small UI canvas
+                let tempFingers = [];
+                
                 for (const landmarks of results.multiHandLandmarks) {
-                    drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS, {color: '#00FF00', lineWidth: 2});
-                    drawLandmarks(canvasCtx, landmarks, {color: '#FF0000', lineWidth: 1, radius: 2});
+                    drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS, {color: '#00E5FF', lineWidth: 2});
+                    drawLandmarks(canvasCtx, landmarks, {color: '#FFFFFF', lineWidth: 1, radius: 2});
                     
-                    // Count fingers logic (Improved using Distance Ratios)
                     let count = 0;
                     const wrist = landmarks[0];
                     const pinkyMcp = landmarks[17];
                     
-                    // Thumb: Compare distance from Thumb Tip(4) to Pinky MCP(17) vs Thumb IP(3) to Pinky MCP(17)
                     if (getDist(landmarks[4], pinkyMcp) > getDist(landmarks[3], pinkyMcp)) count++;
+                    if (getDist(landmarks[8], wrist) > getDist(landmarks[6], wrist)) count++;
+                    if (getDist(landmarks[12], wrist) > getDist(landmarks[10], wrist)) count++;
+                    if (getDist(landmarks[16], wrist) > getDist(landmarks[14], wrist)) count++;
+                    if (getDist(landmarks[20], wrist) > getDist(landmarks[18], wrist)) count++;
 
-                    // Other 4 fingers: Check if Tip is further from Wrist than PIP joint is from Wrist
-                    if (getDist(landmarks[8], wrist) > getDist(landmarks[6], wrist)) count++;   // Index
-                    if (getDist(landmarks[12], wrist) > getDist(landmarks[10], wrist)) count++; // Middle
-                    if (getDist(landmarks[16], wrist) > getDist(landmarks[14], wrist)) count++; // Ring
-                    if (getDist(landmarks[20], wrist) > getDist(landmarks[18], wrist)) count++; // Pinky
-
-                    detectedFingers = count;
+                    tempFingers.push(count);
                 }
-            }
-            canvasCtx.restore();
 
+                // Parse combinations of hands
+                let moveCount = 0;
+                for (let f of tempFingers) {
+                    if (f === 0) {
+                        isJumpCommand = true; // Any hand making a fist triggers jump
+                    } else if (f > moveCount) {
+                        moveCount = f; // The hand with the most fingers dictates movement
+                    }
+                }
+                
+                // If we detected a moving hand, use it. Otherwise, default to idle.
+                if (moveCount > 0) {
+                    maxFingers = moveCount;
+                } else {
+                    maxFingers = 1; 
+                }
+
+            }
+            
+            movementFingers = maxFingers;
+            canvasCtx.restore();
             updateGameState();
         }
 
         function updateGameState() {
             let newState = 'IDLE';
             
-            switch(detectedFingers) {
+            switch(movementFingers) {
                 case 1: newState = 'IDLE'; break;
                 case 2: newState = 'WALK'; break;
                 case 3: newState = 'RUN'; break;
@@ -639,17 +858,18 @@
                 default: newState = 'IDLE'; break;
             }
 
-            if (currentState !== newState) {
+            let displayString = `MOVE: ${newState}`;
+            if (isJumpCommand) displayString += ` + JUMP`;
+
+            if (currentState !== newState || stateDisplay.innerText !== displayString) {
                 currentState = newState;
-                stateDisplay.innerText = `Current State: ${currentState}`;
+                stateDisplay.innerText = displayString;
             }
         }
 
         async function setupMediaPipe() {
             loadingText.style.display = 'block';
-            loadingText.innerText = 'Loading Hand Tracking Model...';
             
-            // Adjust internal canvas size to match CSS size
             canvasElement.width = 240;
             canvasElement.height = 180;
 
@@ -657,8 +877,9 @@
                 return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
             }});
 
+            // Changed to track 2 hands for independent movement and jumping
             hands.setOptions({
-                maxNumHands: 1,
+                maxNumHands: 2, 
                 modelComplexity: 1,
                 minDetectionConfidence: 0.6,
                 minTrackingConfidence: 0.6
@@ -676,15 +897,13 @@
                 });
                 await cameraUtils.start();
                 
-                loadingText.innerText = 'Initializing 3D World...';
+                loadingText.innerText = 'Manifesting World...';
                 initThreeJS();
+                playIntroStory();
                 
-                // Hide Start Screen
-                startScreen.style.opacity = '0';
-                setTimeout(() => startScreen.style.display = 'none', 500);
             } catch (err) {
                 console.error(err);
-                loadingText.innerText = 'Error accessing camera. Please ensure permissions are granted.';
+                loadingText.innerText = 'Camera Error. Please allow permissions.';
                 loadingText.style.color = '#ff5252';
             }
         }
@@ -699,120 +918,135 @@
             requestAnimationFrame(animate);
 
             if (!worldReady) return;
-
             const time = Date.now() * 0.001;
-            let moveSpeed = 0;
 
-            // Handle Player Animal Movement based on State
-            if (currentState === 'WALK') {
-                moveSpeed = SPEEDS.walk;
-                walkCycle += 0.1;
-            } else if (currentState === 'RUN') {
-                moveSpeed = SPEEDS.run;
-                walkCycle += 0.2;
-            } else if (currentState === 'TURN RIGHT') {
-                targetRotation -= SPEEDS.turn;
-                moveSpeed = SPEEDS.walk * 0.5; // Move very slowly while turning
-                walkCycle += 0.05;
-            } else if (currentState === 'TURN LEFT') {
-                targetRotation += SPEEDS.turn;
-                moveSpeed = SPEEDS.walk * 0.5;
-                walkCycle += 0.05;
-            } else { // IDLE
-                // Reset walk cycle slowly
-                walkCycle *= 0.9;
-            }
+            if (isGameRunning) {
+                let targetSpeed = 0;
 
-            // Apply rotation smoothly
-            playerAnimal.rotation.y += (targetRotation - playerAnimal.rotation.y) * 0.1;
-
-            // Apply forward movement
-            if (moveSpeed > 0) {
-                playerAnimal.translateZ(moveSpeed);
-                // Keep within boundaries
-                if(playerAnimal.position.x > 450) playerAnimal.position.x = 450;
-                if(playerAnimal.position.x < -450) playerAnimal.position.x = -450;
-                if(playerAnimal.position.z > 450) playerAnimal.position.z = 450;
-                if(playerAnimal.position.z < -450) playerAnimal.position.z = -450;
-            }
-
-            // Animate Player Animal Parts
-            const legs = playerAnimal.userData.legs;
-            if (moveSpeed > 0) {
-                // Diagonal gait
-                legs.FL.rotation.x = Math.sin(walkCycle) * 0.6;
-                legs.BR.rotation.x = Math.sin(walkCycle) * 0.6;
-                legs.FR.rotation.x = Math.sin(walkCycle + Math.PI) * 0.6;
-                legs.BL.rotation.x = Math.sin(walkCycle + Math.PI) * 0.6;
-                
-                // Head bob
-                playerAnimal.userData.head.position.y = 1.1 + Math.sin(walkCycle*2) * 0.05;
-                // Tail wag
-                playerAnimal.userData.tail.rotation.z = Math.sin(walkCycle) * 0.2;
-            } else {
-                // Idle animations (looking around, breathing)
-                playerAnimal.userData.head.rotation.y = Math.sin(time * 0.5) * 0.3;
-                legs.FL.rotation.x *= 0.9;
-                legs.BR.rotation.x *= 0.9;
-                legs.FR.rotation.x *= 0.9;
-                legs.BL.rotation.x *= 0.9;
-                playerAnimal.userData.tail.rotation.z = Math.sin(time * 2) * 0.1;
-            }
-
-            // Animate NPCs
-            npcs.forEach(npc => {
-                npc.translateZ(npc.userData.speed);
-                npc.userData.turnTimer++;
-                
-                // Randomly turn occasionally or if hitting boundary
-                if (npc.userData.turnTimer > 300 + Math.random()*200 || npc.position.length() > 400) {
-                    npc.rotation.y += (Math.random() - 0.5) * Math.PI;
-                    npc.userData.turnTimer = 0;
-                }
-
-                // NPC Walk cycle
-                npc.userData.legL.rotation.x = Math.sin(time * 5) * 0.5;
-                npc.userData.legR.rotation.x = Math.sin(time * 5 + Math.PI) * 0.5;
-            });
-
-            // Handle Checkpoints (Golden Orbs)
-            checkpoints.forEach(orb => {
-                if (orb.userData.collected) return;
-
-                // Bobbing and rotating animation
-                orb.position.y = orb.userData.originalY + Math.sin(time * 2 + orb.userData.phase) * 0.5;
-                orb.rotation.y += 0.02;
-
-                // Collision Detection with Player (Animal center is at 0,0,0 relative to its group)
-                if (playerAnimal.position.distanceTo(orb.position) < 2.5) {
-                    orb.userData.collected = true;
-                    scene.remove(orb); // Visually remove from scene
-                    score++;
-                    document.getElementById('score-val').innerText = score;
-                    
-                    if (score >= TOTAL_ORBS) {
-                        document.getElementById('task-text').innerText = "🎉 ALL ORBS COLLECTED! YOU WIN! 🎉";
-                        document.getElementById('task-text').style.color = "#4CAF50";
+                // Calculate floor height dynamically so player can land ON logs
+                let floorY = 0;
+                for(let o of obstaclesData) {
+                    if (Math.sqrt(Math.pow(playerAnimal.position.x - o.x, 2) + Math.pow(playerAnimal.position.z - o.z, 2)) < o.radius) {
+                        if (o.height > floorY) floorY = o.height;
                     }
                 }
-            });
 
-            // Update Third-Person Camera
-            // Calculate desired camera position (behind and above player)
-            const cameraOffset = new THREE.Vector3(0, 3, -6);
-            
-            // Transform offset based on player rotation
+                // Handle Jump (Decoupled from movement state)
+                if (isJumpCommand) {
+                    // Check against dynamic floor height instead of 0
+                    if (!isJumping && canJump && playerAnimal.position.y <= floorY + 0.1) {
+                        isJumping = true;
+                        canJump = false; 
+                        playerVelocityY = JUMP_STRENGTH;
+                    }
+                } else {
+                    canJump = true; 
+                }
+
+                // Handle Ground Movement
+                if (currentState === 'WALK') targetSpeed = SPEEDS.walk;
+                else if (currentState === 'RUN') targetSpeed = SPEEDS.run;
+                else if (currentState === 'TURN RIGHT') {
+                    targetRotation -= SPEEDS.turn;
+                    targetSpeed = SPEEDS.walk * 0.4;
+                } else if (currentState === 'TURN LEFT') {
+                    targetRotation += SPEEDS.turn;
+                    targetSpeed = SPEEDS.walk * 0.4;
+                }
+
+                // Smoothly interpolate forward speed
+                if (!isJumping || playerVelocityY < 0) { 
+                    currentForwardSpeed += (targetSpeed - currentForwardSpeed) * 0.1;
+                }
+
+                // Apply rotation
+                playerAnimal.rotation.y += (targetRotation - playerAnimal.rotation.y) * 0.1;
+
+                // Physics: Apply Gravity with dynamic floor detection
+                if (isJumping || playerAnimal.position.y > floorY) {
+                    playerVelocityY += GRAVITY;
+                    playerAnimal.position.y += playerVelocityY;
+
+                    if (playerAnimal.position.y <= floorY) {
+                        playerAnimal.position.y = floorY;
+                        isJumping = false;
+                        playerVelocityY = 0;
+                        if (movementFingers === 1) currentForwardSpeed = 0; 
+                    }
+                } else if (playerAnimal.position.y < floorY) {
+                    playerAnimal.position.y = floorY; // Instantly snap up if walking onto an obstacle
+                }
+
+                // Physics: Forward Movement & Collisions
+                if (currentForwardSpeed > 0.005) {
+                    let oldX = playerAnimal.position.x;
+                    let oldZ = playerAnimal.position.z;
+                    
+                    playerAnimal.translateZ(currentForwardSpeed);
+                    
+                    if (isColliding(playerAnimal.position.x, playerAnimal.position.z, playerAnimal.position.y)) {
+                        playerAnimal.position.x = oldX;
+                        playerAnimal.position.z = oldZ;
+                        currentForwardSpeed = 0; 
+                    } else {
+                        walkCycle += currentForwardSpeed * 4.0; 
+                    }
+                } else {
+                    walkCycle *= 0.9;
+                }
+
+                // Animations
+                const legs = playerAnimal.userData.legs;
+                if (isJumping) {
+                    legs.FL.rotation.x = -0.5; legs.FR.rotation.x = -0.5;
+                    legs.BL.rotation.x = 0.3;  legs.BR.rotation.x = 0.3;
+                    playerAnimal.userData.tail.rotation.z = 0;
+                } else if (currentForwardSpeed > 0.02) {
+                    legs.FL.rotation.x = Math.sin(walkCycle) * 0.7;
+                    legs.BR.rotation.x = Math.sin(walkCycle) * 0.7;
+                    legs.FR.rotation.x = Math.sin(walkCycle + Math.PI) * 0.7;
+                    legs.BL.rotation.x = Math.sin(walkCycle + Math.PI) * 0.7;
+                    
+                    playerAnimal.userData.head.position.y = 1.4 + Math.sin(walkCycle*2) * 0.04;
+                    playerAnimal.userData.tail.rotation.z = Math.sin(walkCycle) * 0.3;
+                } else {
+                    playerAnimal.userData.head.rotation.y = Math.sin(time * 0.8) * 0.2;
+                    legs.FL.rotation.x *= 0.8; legs.BR.rotation.x *= 0.8;
+                    legs.FR.rotation.x *= 0.8; legs.BL.rotation.x *= 0.8;
+                    playerAnimal.userData.tail.rotation.z = Math.sin(time * 1.5) * 0.1;
+                }
+
+                // Handle Checkpoints (Golden Orbs)
+                checkpoints.forEach(orb => {
+                    if (orb.userData.collected) return;
+
+                    orb.position.y = orb.userData.originalY + Math.sin(time * 3 + orb.userData.phase) * 0.3;
+                    orb.rotation.y += 0.02;
+
+                    if (playerAnimal.position.distanceTo(orb.position) < 3.0) {
+                        orb.userData.collected = true;
+                        scene.remove(orb);
+                        score++;
+                        document.getElementById('score-val').innerText = score;
+                        
+                        if (score >= TOTAL_ORBS) {
+                            playOutroStory();
+                        }
+                    }
+                });
+            }
+
+            const cameraOffset = new THREE.Vector3(0, 4, -7);
             cameraOffset.applyAxisAngle(new THREE.Vector3(0, 1, 0), playerAnimal.rotation.y);
             
             const targetCameraPos = playerAnimal.position.clone().add(cameraOffset);
+            targetCameraPos.y = Math.max(4, playerAnimal.position.y + 3); 
             
-            // Smoothly interpolate camera position
             camera.position.lerp(targetCameraPos, 0.1);
             
-            // Look slightly ahead of the player
             const lookTarget = playerAnimal.position.clone();
             lookTarget.y += 1.5; 
-            lookTarget.add(new THREE.Vector3(0,0,2).applyAxisAngle(new THREE.Vector3(0,1,0), playerAnimal.rotation.y));
+            lookTarget.add(new THREE.Vector3(0,0,3).applyAxisAngle(new THREE.Vector3(0,1,0), playerAnimal.rotation.y));
             
             camera.lookAt(lookTarget);
 
